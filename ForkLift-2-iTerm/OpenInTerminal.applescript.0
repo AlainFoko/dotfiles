@@ -1,0 +1,26 @@
+-- OpenInTerminal.applescript
+-- ForkLift
+--  Created by ONO
+
+
+tell application "Terminal"
+	
+	activate
+	
+	set windowCount to (count of the windows)
+	
+	-- Terminal may be just launched loading the shell, wait a bit
+	if windowCount is greater than 0 and first window is busy then
+		delay 0.5
+	end if
+	
+	-- Still busy / no windows? open new tab
+	if windowCount is greater than 0 and first window is busy or windowCount is 0 then
+		tell application "System Events" to tell process "Terminal"
+			click first menu item of first menu of second menu item of first menu of third menu bar item of first menu bar
+		end tell
+	end if
+	
+	do script "cd _forklift_path_placeholder_" in first window
+	
+end tell
